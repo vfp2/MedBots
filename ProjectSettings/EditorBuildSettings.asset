@@ -4,4 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MedBots.unity
+    guid: 5d11f2631bef1422ea12e424c33254b0
+  - enabled: 0
+    path: Assets/vilbeyliPacman/Scenes/credits.unity
+    guid: eca5911d8e6773449abc08db79495f66
+  - enabled: 0
+    path: Assets/vilbeyliPacman/Scenes/game.unity
+    guid: 9e9224b41a251ad4aa4213392f1b76cc
+  - enabled: 0
+    path: Assets/vilbeyliPacman/Scenes/menu.unity
+    guid: 40dd9ee221b736047a07a07ee0dc3e5c
+  - enabled: 0
+    path: Assets/vilbeyliPacman/Scenes/scores.unity
+    guid: 4c12986e248057440b5330fe60d951f0
+  m_configObjects: {}
