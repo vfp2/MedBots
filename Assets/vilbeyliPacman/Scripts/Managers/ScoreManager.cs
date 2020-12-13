@@ -145,6 +145,11 @@ public class ScoreManager : MonoBehaviour {
         return _highscore;
     }
 
+    public int HighLevel()
+    {
+        return PlayerPrefs.GetInt("HIGH_LEVEL");
+    }
+
     public int LowestHigh()
     {
         return _lowestHigh;

@@ -215,6 +215,10 @@ public class GameGUINavigation : MonoBehaviour {
     public void LoadLevel()
     {
         GameManager.Level++;
+		if (PlayerPrefs.GetInt("HIGH_LEVEL") < GameManager.Level)
+		{
+			PlayerPrefs.SetInt("HIGH_LEVEL", GameManager.Level);
+		}
         Application.LoadLevel("game");
     }
 
