@@ -10,7 +10,10 @@ public class MedPlayerController : PlayerController
     private static extern int MF_Initialize(out IntPtr pErrorReason);
 
     [DllImport("meterfeeder")]
-    private static extern int MF_GetByte(string generatorSerialNumber, out IntPtr pErrorReason);
+    private static extern IntPtr MF_GetByte(string generatorSerialNumber, out IntPtr pErrorReason);
+
+    [DllImport("meterfeeder")]
+    private static extern int MF_GetBits(string generatorSerialNumber, out IntPtr pErrorReason);
 
     [DllImport("meterfeeder")]
     private static extern int MF_Shutdown();
@@ -51,12 +54,14 @@ public class MedPlayerController : PlayerController
 
         if (!medInited)
         {
-            IntPtr errPtr;
-            int medRes = MF_Initialize(out errPtr);
-            var medErr = Marshal.PtrToStringAnsi(errPtr);
-            Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, error:{medErr}");
-            medInited = true;
+            //IntPtr errPtr;
+            //int medRes = MF_Initialize(out errPtr);
+            //var medErr = Marshal.PtrToStringAnsi(errPtr);
+            //Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, error:{medErr}");
+            //medInited = true;
         }
+
+        StartCoroutine(readmed());
     }
 
     // Update is called once per frame
@@ -138,12 +143,25 @@ public class MedPlayerController : PlayerController
         GetComponent<Animator>().SetFloat("DirY", 0);
     }
 
+    IEnumerator readmed()
+    {
+        IntPtr errPtr2;
+        while (true)
+        {
+            num1s = MF_GetBits(medDevice, out errPtr2);
+            num0s = totalBits - num1s;
+            yield return new WaitForSeconds(0f);
+        }
+    }
+
     int even = 0;
     static bool qrngOn = true;
     private float waitTime = 0.2f;
     private float timer = 0.0f;
     static string medDevice = "QWR4A003";
+    int totalBits = 1696 * 8;
     int num1s = 0, num0s = 0;
+
     void ReadInputAndMove()
     {
         // move closer to destination
@@ -161,34 +179,45 @@ public class MedPlayerController : PlayerController
 
         if (qrngOn)
         {
-            if (timer <= waitTime)
-            {
+            //var medErr2 = Marshal.PtrToStringAnsi(errPtr2);
+            //Debug.Log($"MeterFeeder MF_GetByte: result:{medRes2}, error:{medErr2}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
 
-                IntPtr errPtr2; int medRes2 = 1;
-                medRes2 = MF_GetByte(medDevice, out errPtr2);
-                //var medErr2 = Marshal.PtrToStringAnsi(errPtr2);
-                //Debug.Log($"MeterFeeder MF_GetByte: result:{medRes2}, error:{medErr2}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
+            //if (timer <= waitTime)
+            //{
 
-                int numOnes = countSetBits(medRes2 >> 1);
-                num1s += numOnes;
-                num0s += 7 - numOnes;
-            }
-            else
-            {
+            //    IntPtr errPtr2;
+            //    IntPtr medRes2;
+            //    medRes2 = MF_GetByte(medDevice, out errPtr2);
+            //    //var medErr2 = Marshal.PtrToStringAnsi(errPtr2);
+            //    //Debug.Log($"MeterFeeder MF_GetByte: result:{medRes2}, error:{medErr2}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
+
+            //    for (int i = 0; i < 1696; i++)
+            //    {
+            //        var b = Marshal.ReadByte(medRes2);
+            //        int numOnes = countSetBits(b);
+            //        num1s += numOnes;
+            //        num0s += 8 - numOnes;
+            //    }
+            //}
+            //else
+            //{
+                //Debug.Log($"Num bits in trial: {num1s+num0s}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
+
                 bool bitOn = false;
                 if (num1s > num0s)
                 {
                     bitOn = true;
-                    //Debug.Log($"num1s > num0s: num1s:{num1s}, num0s:{num0s}");
-                }
-                //else if (num1s == num0s)
-                //{
-                //    //Debug.LogError("SAME NUMBER OF BITS!!!");
-                //    //Debug.Log($"num1s = num0s: num1s:{num1s}, num0s:{num0s}");
-                //} else
-                //{
-                //    //Debug.Log($"num1s < num0s: num1s:{num1s}, num0s:{num0s}");
-                //}
+                //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
+            }
+                else if (num1s == num0s)
+                {
+                    Debug.LogError("SAME NUMBER OF BITS!!!");
+                //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
+            }
+                else
+                {
+                //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
+            }
 
                 if (even % 2 != 0)
                 {
@@ -213,10 +242,10 @@ public class MedPlayerController : PlayerController
                     }
                 }
 
+
                 timer = timer - waitTime;
-                num0s = num1s = 0;
                 even++;
-            }
+            //}
         }
         else
         {
@@ -236,8 +265,8 @@ public class MedPlayerController : PlayerController
             }
             else   // if next direction is not valid
             {
-                if (Valid(_dir))  // and the prev. direction is valid
-                    _dest = (Vector2)transform.position + _dir;   // continue on that direction
+                //if (Valid(_dir))  // and the prev. direction is valid
+                //    _dest = (Vector2)transform.position + _dir;   // continue on that direction
 
                 // otherwise, do nothing
             }
