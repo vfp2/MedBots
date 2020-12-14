@@ -4,7 +4,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
 
-public class MedPlayerController : MonoBehaviour
+public class MedPlayerController : PlayerController
 {
     [DllImport("meterfeeder")]
     private static extern int MF_Initialize(out IntPtr pErrorReason);
@@ -14,6 +14,8 @@ public class MedPlayerController : MonoBehaviour
 
     [DllImport("meterfeeder")]
     private static extern int MF_Shutdown();
+
+    static bool medInited = false;
 
     public float speed = 0.4f;
     Vector2 _dest = Vector2.zero;
@@ -47,10 +49,14 @@ public class MedPlayerController : MonoBehaviour
         GUINav = GameObject.Find("UI Manager").GetComponent<GameGUINavigation>();
         _dest = transform.position;
 
-        IntPtr errPtr;
-        int medRes = MF_Initialize(out errPtr);
-        var medErr = Marshal.PtrToStringAnsi(errPtr);
-        Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, error:{medErr}");
+        if (!medInited)
+        {
+            IntPtr errPtr;
+            int medRes = MF_Initialize(out errPtr);
+            var medErr = Marshal.PtrToStringAnsi(errPtr);
+            Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, error:{medErr}");
+            medInited = true;
+        }
     }
 
     // Update is called once per frame
@@ -133,52 +139,91 @@ public class MedPlayerController : MonoBehaviour
     }
 
     int even = 0;
+    static bool qrngOn = true;
+    private float waitTime = 0.2f;
+    private float timer = 0.0f;
+    static string medDevice = "QWR4A003";
+    int num1s = 0, num0s = 0;
     void ReadInputAndMove()
     {
         // move closer to destination
         Vector2 p = Vector2.MoveTowards(transform.position, _dest, speed);
         GetComponent<Rigidbody2D>().MovePosition(p);
 
-
-        IntPtr errPtr2;
-        int medRes2 = MF_GetByte("QWR4A003", out errPtr2);
-        //var medErr2 = Marshal.PtrToStringAnsi(errPtr2);
-        var medErr2 = "none";
-        //Debug.Log($"MeterFeeder MF_GetByte: result:{medRes2}, error:{medErr2}");
-
         // get the next direction from keyboard
-        //if (Input.GetAxis("Horizontal") > 0) _nextDir = Vector2.right;
-        //if (Input.GetAxis("Horizontal") < 0) _nextDir = -Vector2.right;
-        //if (Input.GetAxis("Vertical") > 0) _nextDir = Vector2.up;
-        //if (Input.GetAxis("Vertical") < 0) _nextDir = -Vector2.up;
-
-        int numBits = countSetBits(medRes2>>1);
-        bool bitOn = false;
-        if (numBits >= 4)
+        if (Input.GetKeyDown("space"))
         {
-            bitOn = true;
+            qrngOn = !qrngOn;
+            Debug.Log(qrngOn ? "Random walking" : "Press ↑←↓→ buttons to walk");
         }
 
-        if (even % 2 == 0)
+        timer += Time.deltaTime;
+
+        if (qrngOn)
         {
-            if (bitOn)
+            if (timer <= waitTime)
             {
-                _nextDir = Vector2.up;
+
+                IntPtr errPtr2; int medRes2 = 1;
+                medRes2 = MF_GetByte(medDevice, out errPtr2);
+                //var medErr2 = Marshal.PtrToStringAnsi(errPtr2);
+                //Debug.Log($"MeterFeeder MF_GetByte: result:{medRes2}, error:{medErr2}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
+
+                int numOnes = countSetBits(medRes2 >> 1);
+                num1s += numOnes;
+                num0s += 7 - numOnes;
             }
             else
             {
-                _nextDir = Vector2.down;
+                bool bitOn = false;
+                if (num1s > num0s)
+                {
+                    bitOn = true;
+                    //Debug.Log($"num1s > num0s: num1s:{num1s}, num0s:{num0s}");
+                }
+                //else if (num1s == num0s)
+                //{
+                //    //Debug.LogError("SAME NUMBER OF BITS!!!");
+                //    //Debug.Log($"num1s = num0s: num1s:{num1s}, num0s:{num0s}");
+                //} else
+                //{
+                //    //Debug.Log($"num1s < num0s: num1s:{num1s}, num0s:{num0s}");
+                //}
+
+                if (even % 2 != 0)
+                {
+                    if (bitOn)
+                    {
+                        _nextDir = Vector2.up;
+                    }
+                    else
+                    {
+                        _nextDir = Vector2.down;
+                    }
+                }
+                else
+                {
+                    if (bitOn)
+                    {
+                        _nextDir = Vector2.left;
+                    }
+                    else
+                    {
+                        _nextDir = Vector2.right;
+                    }
+                }
+
+                timer = timer - waitTime;
+                num0s = num1s = 0;
+                even++;
             }
-        } else
+        }
+        else
         {
-            if (bitOn)
-            {
-                _nextDir = Vector2.left;
-            }
-            else
-            {
-                _nextDir = Vector2.right;
-            }
+            if (Input.GetAxis("Horizontal") > 0) _nextDir = Vector2.right;
+            if (Input.GetAxis("Horizontal") < 0) _nextDir = -Vector2.right;
+            if (Input.GetAxis("Vertical") > 0) _nextDir = Vector2.up;
+            if (Input.GetAxis("Vertical") < 0) _nextDir = -Vector2.up;
         }
 
         // if pacman is in the center of a tile
@@ -197,8 +242,6 @@ public class MedPlayerController : MonoBehaviour
                 // otherwise, do nothing
             }
         }
-
-        even++;
     }
 
     static int countSetBits(int n)
@@ -214,8 +257,8 @@ public class MedPlayerController : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        Debug.Log("MeterFeeder MF_Shutdown");
-        MF_Shutdown();
+        //Debug.Log("MeterFeeder MF_Shutdown");
+        //MF_Shutdown();
     }
 
     public Vector2 getDir()
