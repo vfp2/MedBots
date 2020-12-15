@@ -13,7 +13,7 @@ public class MedPlayerController : PlayerController
     private static extern IntPtr MF_GetByte(string generatorSerialNumber, out IntPtr pErrorReason);
 
     [DllImport("meterfeeder")]
-    private static extern int MF_GetBits(string generatorSerialNumber, out IntPtr pErrorReason);
+    private static extern int MF_GetBits(string generatorSerialNumber, out IntPtr pErrorReason, int ampFac);
 
     [DllImport("meterfeeder")]
     private static extern int MF_Shutdown();
@@ -54,11 +54,11 @@ public class MedPlayerController : PlayerController
 
         if (!medInited)
         {
-            //IntPtr errPtr;
-            //int medRes = MF_Initialize(out errPtr);
-            //var medErr = Marshal.PtrToStringAnsi(errPtr);
-            //Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, error:{medErr}");
-            //medInited = true;
+            IntPtr errPtr;
+            int medRes = MF_Initialize(out errPtr);
+            var medErr = Marshal.PtrToStringAnsi(errPtr);
+            Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, error:{medErr}");
+            medInited = true;
         }
 
         StartCoroutine(readmed());
@@ -148,7 +148,7 @@ public class MedPlayerController : PlayerController
         IntPtr errPtr2;
         while (true)
         {
-            num1s = MF_GetBits(medDevice, out errPtr2);
+            num1s = MF_GetBits(medDevice, out errPtr2, 12);
             num0s = totalBits - num1s;
             yield return new WaitForSeconds(0f);
         }
@@ -159,7 +159,7 @@ public class MedPlayerController : PlayerController
     private float waitTime = 0.2f;
     private float timer = 0.0f;
     static string medDevice = "QWR4A003";
-    int totalBits = 1696 * 8;
+    int totalBits = 512 * 8;
     int num1s = 0, num0s = 0;
 
     void ReadInputAndMove()
@@ -203,44 +203,73 @@ public class MedPlayerController : PlayerController
             //{
                 //Debug.Log($"Num bits in trial: {num1s+num0s}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
 
-                bool bitOn = false;
-                if (num1s > num0s)
-                {
-                    bitOn = true;
-                //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
-            }
-                else if (num1s == num0s)
-                {
-                    Debug.LogError("SAME NUMBER OF BITS!!!");
-                //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
-            }
-                else
-                {
-                //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
-            }
 
                 if (even % 2 != 0)
                 {
-                    if (bitOn)
+                    if (num1s == 1)
                     {
                         _nextDir = Vector2.up;
+                        num1s = 0;
                     }
-                    else
+                    else if (num1s == -1)
                     {
                         _nextDir = Vector2.down;
-                    }
+                        num1s = 0;
+                    } else { return; }
                 }
                 else
                 {
-                    if (bitOn)
+                    if (num1s == 1)
                     {
                         _nextDir = Vector2.left;
+                        num1s = 0;
                     }
-                    else
+                    else if (num1s == -1)
                     {
                         _nextDir = Vector2.right;
-                    }
+                        num1s = 0;
+                    } else { return; }
                 }
+
+                bool bitOn = false;
+            
+                //if (num1s > num0s)
+                //{
+                //    bitOn = true;
+                //    //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
+                //}
+                //else if (num1s == num0s)
+                //{
+                //    Debug.LogError("SAME NUMBER OF BITS!!!");
+                //    //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
+                //}
+                //else
+                //{
+                //    //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
+                //}
+
+                //if (even % 2 != 0)
+                //{
+                //    if (bitOn)
+                //    {
+                //        _nextDir = Vector2.up;
+                //    }
+                //    else
+                //    {
+                //        _nextDir = Vector2.down;
+                //    }
+                //}
+                //else
+                //{
+                //    if (bitOn)
+                //    {
+                //        _nextDir = Vector2.left;
+                //    }
+                //    else
+                //    {
+                //        _nextDir = Vector2.right;
+                //    }
+                //}
 
 
                 timer = timer - waitTime;
