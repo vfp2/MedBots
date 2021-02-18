@@ -6,16 +6,19 @@ using System.Text;
 
 public class MedPlayerController : PlayerController
 {
-    [DllImport("meterfeeder")]
-    private static extern int MF_Initialize(out IntPtr pErrorReason);
+    private static readonly int MF_ERROR_STR_MAX_LEN = 256;
+    private static StringBuilder sMFErrorReason = new StringBuilder(MF_ERROR_STR_MAX_LEN);
 
-    [DllImport("meterfeeder")]
-    private static extern IntPtr MF_GetByte(string generatorSerialNumber, out IntPtr pErrorReason);
+    [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
+    private static extern int MF_Initialize(StringBuilder pErrorReason);
 
-    [DllImport("meterfeeder")]
-    private static extern int MF_GetBits(string generatorSerialNumber, out IntPtr pErrorReason, int ampFac);
+    [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
+    private static extern void MF_GetBytes(int length, IntPtr buffer, string generatorSerialNumber, StringBuilder pErrorReason);
 
-    [DllImport("meterfeeder")]
+    [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
+    private static extern IntPtr MF_GetByte(string generatorSerialNumber, StringBuilder pErrorReason);
+
+    [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
     private static extern int MF_Shutdown();
 
     static bool medInited = false;
@@ -52,16 +55,15 @@ public class MedPlayerController : PlayerController
         GUINav = GameObject.Find("UI Manager").GetComponent<GameGUINavigation>();
         _dest = transform.position;
 
-        if (!medInited)
+        int medRes = -1;
+        sMFErrorReason.Clear();
+        medRes = MF_Initialize(sMFErrorReason);
+        Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, errorReason:{sMFErrorReason}");
+        if (medRes != 0)
         {
-            IntPtr errPtr;
-            int medRes = MF_Initialize(out errPtr);
-            var medErr = Marshal.PtrToStringAnsi(errPtr);
-            Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, error:{medErr}");
-            medInited = true;
-        }
+            StartCoroutine(ReadMed());
 
-        StartCoroutine(readmed());
+        }
     }
 
     // Update is called once per frame
@@ -143,14 +145,22 @@ public class MedPlayerController : PlayerController
         GetComponent<Animator>().SetFloat("DirY", 0);
     }
 
-    IEnumerator readmed()
+    IEnumerator ReadMed()
     {
-        IntPtr errPtr2;
         while (true)
         {
-            num1s = MF_GetBits(medDevice, out errPtr2, 12);
-            num0s = totalBits - num1s;
-            yield return new WaitForSeconds(0f);
+            IntPtr bufferPtr = Marshal.AllocCoTaskMem(len);
+            MF_GetBytes(len, bufferPtr, medDevice, sMFErrorReason);
+            byte[] buffer = new byte[len];
+            Marshal.Copy(bufferPtr, buffer, 0, len);
+            num0s = num1s = 0;
+            for (int i = 0; i < len; i++)
+            {
+                int sb = countSetBits(buffer[i]);
+                num1s += sb;
+                num0s += (8 - sb);
+            }
+            yield return null;
         }
     }
 
@@ -158,8 +168,8 @@ public class MedPlayerController : PlayerController
     static bool qrngOn = true;
     private float waitTime = 0.2f;
     private float timer = 0.0f;
-    static string medDevice = "QWR4A003";
-    int totalBits = 512 * 8;
+    static string medDevice = "QWR4E001";
+    int len = 256;
     int num1s = 0, num0s = 0;
 
     void ReadInputAndMove()
@@ -179,102 +189,51 @@ public class MedPlayerController : PlayerController
 
         if (qrngOn)
         {
-            //var medErr2 = Marshal.PtrToStringAnsi(errPtr2);
-            //Debug.Log($"MeterFeeder MF_GetByte: result:{medRes2}, error:{medErr2}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
 
-            //if (timer <= waitTime)
-            //{
+            bool bitOn = false;
 
-            //    IntPtr errPtr2;
-            //    IntPtr medRes2;
-            //    medRes2 = MF_GetByte(medDevice, out errPtr2);
-            //    //var medErr2 = Marshal.PtrToStringAnsi(errPtr2);
-            //    //Debug.Log($"MeterFeeder MF_GetByte: result:{medRes2}, error:{medErr2}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
+            if (num1s > num0s)
+            {
+                bitOn = true;
+                //Debug.Log($"1: num1s:{num1s}, num0s:{num0s}");
+            }
+            else if (num1s == num0s)
+            {
+                //Debug.LogError("SAME NUMBER OF BITS!!!");
+                //Debug.Log($"2: num1s:{num1s}, num0s:{num0s}");
+                return;
+            }
+            else
+            {
+                //Debug.Log($"3: num1s:{num1s}, num0s:{num0s}");
+            }
 
-            //    for (int i = 0; i < 1696; i++)
-            //    {
-            //        var b = Marshal.ReadByte(medRes2);
-            //        int numOnes = countSetBits(b);
-            //        num1s += numOnes;
-            //        num0s += 8 - numOnes;
-            //    }
-            //}
-            //else
-            //{
-                //Debug.Log($"Num bits in trial: {num1s+num0s}, time:{DateTime.Now}.{DateTime.Now.Millisecond}");
-
-
-                if (even % 2 != 0)
+            if (even % 2 != 0)
+            {
+                if (bitOn)
                 {
-                    if (num1s == 1)
-                    {
-                        _nextDir = Vector2.up;
-                        num1s = 0;
-                    }
-                    else if (num1s == -1)
-                    {
-                        _nextDir = Vector2.down;
-                        num1s = 0;
-                    } else { return; }
+                    _nextDir = Vector2.up;
                 }
                 else
                 {
-                    if (num1s == 1)
-                    {
-                        _nextDir = Vector2.left;
-                        num1s = 0;
-                    }
-                    else if (num1s == -1)
-                    {
-                        _nextDir = Vector2.right;
-                        num1s = 0;
-                    } else { return; }
+                    _nextDir = Vector2.down;
                 }
-
-                bool bitOn = false;
-            
-                //if (num1s > num0s)
-                //{
-                //    bitOn = true;
-                //    //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
-                //}
-                //else if (num1s == num0s)
-                //{
-                //    Debug.LogError("SAME NUMBER OF BITS!!!");
-                //    //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
-                //}
-                //else
-                //{
-                //    //Debug.Log($"num1s:{num1s}, num0s:{num0s}");
-                //}
-
-                //if (even % 2 != 0)
-                //{
-                //    if (bitOn)
-                //    {
-                //        _nextDir = Vector2.up;
-                //    }
-                //    else
-                //    {
-                //        _nextDir = Vector2.down;
-                //    }
-                //}
-                //else
-                //{
-                //    if (bitOn)
-                //    {
-                //        _nextDir = Vector2.left;
-                //    }
-                //    else
-                //    {
-                //        _nextDir = Vector2.right;
-                //    }
-                //}
+            }
+            else
+            {
+                if (bitOn)
+                {
+                    _nextDir = Vector2.left;
+                }
+                else
+                {
+                    _nextDir = Vector2.right;
+                }
+            }
 
 
-                timer = timer - waitTime;
-                even++;
-            //}
+            timer = timer - waitTime;
+            even++;
         }
         else
         {
@@ -315,8 +274,8 @@ public class MedPlayerController : PlayerController
 
     void OnApplicationQuit()
     {
-        //Debug.Log("MeterFeeder MF_Shutdown");
-        //MF_Shutdown();
+        Debug.Log("MeterFeeder MF_Shutdown");
+        MF_Shutdown();
     }
 
     public Vector2 getDir()
