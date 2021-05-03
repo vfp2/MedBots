@@ -14,4 +14,8 @@ public class MainMenuButtonHandler : MonoBehaviour
     public static void OpenPongScene() {
         SceneManager.LoadScene("Pong/MedPong");
     }
+
+    public static void OpenEVPScene() {
+        SceneManager.LoadScene("EVP/EVP");
+    }
 }
