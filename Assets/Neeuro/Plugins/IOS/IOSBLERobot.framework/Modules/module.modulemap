@@ -1,0 +1,6 @@
+framework module IOSBLERobot {
+  umbrella header "IOSBLERobot.h"
+
+  export *
+  module * { export * }
+}
