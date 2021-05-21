@@ -18,4 +18,8 @@ public class MainMenuButtonHandler : MonoBehaviour
     public static void OpenEVPScene() {
         SceneManager.LoadScene("EVP/EVP");
     }
+
+    public static void OpenNeeuroScene() {
+        SceneManager.LoadScene("Neeuro/Sample/Scenes/demo");
+    }
 }

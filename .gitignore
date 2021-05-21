@@ -60,4 +60,5 @@ crashlytics-build.properties
 
 # More by soliax
 .DS_Store
-executables/*
+executables
+builds
