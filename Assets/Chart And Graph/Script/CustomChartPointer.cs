@@ -1,4 +1,4 @@
-#define Graph_And_Chart_PRO
+﻿#define Graph_And_Chart_PRO
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 namespace ChartAndGraph
 {
-    class CustomChartPointer : MaskableGraphic ,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler,IPointerUpHandler,IPointerClickHandler
+    [RequireComponent(typeof(CanvasRenderer))]
+    class CustomChartPointer : MaskableGraphic, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
     {
         public Vector2 ScreenPosition;
         public bool IsMouseDown;
@@ -18,6 +19,10 @@ namespace ChartAndGraph
         protected override void Awake()
         {
             color = new Color(0f, 0f, 0f, 0f);
+        }
+        protected override void UpdateGeometry()
+        {
+            //base.UpdateGeometry();
         }
         public void OnPointerClick(PointerEventData eventData)
         {

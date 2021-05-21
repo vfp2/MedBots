@@ -29,6 +29,7 @@ namespace Assets
         bool mUpdateWindow = false;
         Texture mSettings;
         GUIContent MaxRadarValue = new GUIContent("Max Value :", "All radar values are scale according to this value");
+        GUIContent MinRadarValue = new GUIContent("Min Value :", "All radar values are scale according to this value");
         RenameWindow mRenameWindow;
 
         string[] NonCanvas = new string[]
@@ -336,6 +337,7 @@ namespace Assets
             NamedItemEditor(radarData, "group", "mGroups", "Groups", ref mGroupError, ref mGroups, ref mNewGroupName);
 
             SerializedProperty maxProp = radarData.FindPropertyRelative("maxValue");
+            SerializedProperty minProp = radarData.FindPropertyRelative("minValue");
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(MaxRadarValue, EditorStyles.boldLabel);
@@ -351,6 +353,21 @@ namespace Assets
                 EditorGUILayout.PropertyField(maxProp);
                 if (0f > maxProp.doubleValue)
                     maxProp.doubleValue = 0.001f;
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(MinRadarValue, EditorStyles.boldLabel);
+            automaticProp = radarData.FindPropertyRelative("automaticMinValue");
+            automatic = automaticProp.boolValue;
+            automatic = GUILayout.Toggle(automatic, "Auto");
+            GUILayout.FlexibleSpace();
+            automaticProp.boolValue = automatic;
+            EditorGUILayout.EndHorizontal();
+            if (automatic == false)
+            {
+
+                EditorGUILayout.PropertyField(minProp);
+
             }
 
             if (GUILayout.Button("Edit Values...") && mWindow == null)

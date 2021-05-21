@@ -102,6 +102,7 @@ namespace ChartAndGraph
             RaisePropertyUpdated();
         }
 
+
         /// <summary>
         /// set this to true to automatically detect the highest radar value int the chart. This value will be used to scale all other radar entries
         /// </summary>
@@ -114,6 +115,8 @@ namespace ChartAndGraph
                 RaisePropertyUpdated();
             }
         }
+
+
         /// <summary>
         /// Mannualy set the maximum value , all radar entires will be scaled based on this value. If a radar entry value is larger than this value it will be clamped
         /// Note: set AutomaticMaxValue to false in order to use this field
@@ -135,6 +138,46 @@ namespace ChartAndGraph
             }
         }
 
+
+        /// <summary>
+        /// set this to true to automatically detect the lowest radar value int the chart. This value will be used to scale all other radar entries
+        /// </summary>
+        [SerializeField]
+        private bool automaticMinValue = false;
+
+        /// <summary>
+        /// set this to true to automatically detect the highest radar value int the chart. This value will be used to scale all other radar entries
+        /// </summary>
+        public bool AutomaticMinValue
+        {
+            get { return automaticMinValue; }
+            set
+            {
+                automaticMinValue = value;
+                RaisePropertyUpdated();
+            }
+        }
+
+        /// <summary>
+        /// Mannualy set the minimum value , all radar entires will be scaled based on this value. If a radar entry value is larger than this value it will be clamped
+        /// Note: set AutomaticMinValue to false in order to use this field
+        /// </summary>
+        [SerializeField]
+        private double minValue = 0;
+
+        /// <summary>
+        /// Mannualy set the minimum value , all radar entires will be scaled based on this value. If a radar entry value is larger than this value it will be clamped
+        /// Note: set AutomaticMinValue to false in order to use this field
+        /// </summary>
+        public double MinValue
+        {
+            get { return minValue; }
+            set
+            {
+                minValue = value;
+                RaisePropertyUpdated();
+            }
+        }
 
         public void Update()
         {
@@ -159,7 +202,12 @@ namespace ChartAndGraph
 
         public double GetMinValue()
         {
-            return 0.0;
+            double min = MinValue;
+            double? rawMin = mDataSource.getRawMinValue();
+
+            if (AutomaticMinValue && rawMin.HasValue)
+                min = rawMin.Value;
+            return min;
         }
         public bool HasGroup(string groupName)
         {
@@ -174,6 +222,7 @@ namespace ChartAndGraph
             }
             return false;
         }
+
         public double GetMaxValue()
         {
             double max = MaxValue;
@@ -182,8 +231,8 @@ namespace ChartAndGraph
             if (AutomaticMaxValue && rawMax.HasValue)
                 max = rawMax.Value;
             return max;
-
         }
+
         public bool HasCategory(string category)
         {
             try

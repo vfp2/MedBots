@@ -57,7 +57,17 @@ namespace ChartAndGraph
                 OnPropertyUpdated();
             }
         }
-
+        [SerializeField]
+        private bool negativeFill = false;
+        public bool NegativeFill
+        {
+            get { return negativeFill; }
+            set
+            {
+                negativeFill = value;
+                OnPropertyUpdated();
+            }
+        }
         [SerializeField]
         private ChartMagin fitMargin;
         public ChartMagin FitMargin
@@ -130,8 +140,10 @@ namespace ChartAndGraph
             GameObject obj = new GameObject("Lines", typeof(RectTransform));
             ChartCommon.HideObject(obj, hideHierarchy);
             obj.AddComponent<ChartItem>();
-   
-            obj.AddComponent<CanvasRenderer>();
+
+            var rend = obj.AddComponent<CanvasRenderer>();
+            rend.cullTransparentMesh = false;
+
             CenterObject(obj,rectMask.GetComponent<RectTransform>());
             //  Canvas c = obj.AddComponent<Canvas>();
 
@@ -322,6 +334,10 @@ namespace ChartAndGraph
 
                 if (obj.mFill != null)
                 {
+                    float zero = (float)((-min.y / (max.y - min.y)) * viewRect.height);
+                    if (negativeFill == false)
+                        zero = 0f;
+                    obj.mFill.SetFillZero(zero);
                     obj.mFill.SetViewRect(viewRect, uv);
                     obj.mFill.ModifyLines(minUpdateIndex,mTransformed);
                     obj.mFill.SetRefrenceIndex(refrenceIndex);
@@ -419,7 +435,10 @@ namespace ChartAndGraph
                     fill.SetRefrenceIndex(refrenceIndex);
                     fill.SetLines(list);
                     fill.SetViewRect(viewRect, uv);
-                    fill.MakeFillRender(viewRect, data.StetchFill,true);
+                    float zero = (float) ((-min.y / (max.y - min.y)) * viewRect.height);
+                    if (negativeFill == false)
+                        zero = 0f;
+                    fill.MakeFillRender(viewRect, zero, data.StetchFill,true);
                     categoryObj.mFill = fill;
                 }
                 string catName = data.Name;

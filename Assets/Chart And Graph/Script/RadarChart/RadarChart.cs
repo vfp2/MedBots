@@ -468,6 +468,7 @@ namespace ChartAndGraph
             }
 
             double maxValue = Data.GetMaxValue();
+            double minValue = Data.GetMinValue();
 
             if (maxValue > 0.000001f)
             { 
@@ -479,7 +480,7 @@ namespace ChartAndGraph
                         finalMaxValue = maxValue;
                     for (int j = 0; j < rowCount; j++)
                     {
-                        float rad = ((float)(data[j, i] / finalMaxValue)) * Radius;
+                        float rad = ((float)((data[j, i]- minValue) / (finalMaxValue - minValue))) * Radius;
                         path[j] = mDirections[j] * rad;
                     }
                   //  path[rowCount] = path[0];
@@ -500,7 +501,7 @@ namespace ChartAndGraph
                     { 
                         float factor = ((float)(i + 1) / (float)TotalAxisDevisions);
                         float rad = Radius * factor + mItemLabels.Seperation;
-                        string value = ChartAdancedSettings.Instance.FormatFractionDigits(mItemLabels.FractionDigits,(float)(maxValue * factor), CustomNumberFormat);
+                        string value = ChartAdancedSettings.Instance.FormatFractionDigits(mItemLabels.FractionDigits,(float)(Mathf.Lerp((float)minValue,(float)maxValue,factor)), CustomNumberFormat);
                         Vector3 position = Vector3.Lerp(mDirections[index] , mDirections[nextIndex] , blend) * rad;
                         position.z = mItemLabels.Location.Depth;
                         string toSet = mItemLabels.TextFormat.Format(value, "", "");

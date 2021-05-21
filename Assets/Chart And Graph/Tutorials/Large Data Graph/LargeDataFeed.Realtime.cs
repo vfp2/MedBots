@@ -35,13 +35,13 @@ public partial class LargeDataFeed
             if (currentDownSampleCount >= RealtimeDownSampleCount)
             {
                 RestartDownSampleCount();
-                graph.DataSource.AddPointToCategoryRealtime("Player 1", x, y, slideTime);
+                graph.DataSource.AddPointToCategoryRealtime(Category, x, y, slideTime);
             }
             DownSampleSum += v.ToDoubleVector3();
             currentDownSampleCount++;
             var avarage = DownSampleSum * 1.0 / (double)currentDownSampleCount;
             if(currentDownSampleCount != 1)
-                graph.DataSource.UpdateLastPointInCategoryRealtime("Player 1", avarage.x, avarage.y, slideTime);
+                graph.DataSource.UpdateLastPointInCategoryRealtime(Category, avarage.x, avarage.y, slideTime);
         }
         else
             RestartDownSampleCount();
@@ -68,7 +68,7 @@ public partial class LargeDataFeed
         }
         mData.Add(new DoubleVector2(x, y));
         if (show)
-            graph.DataSource.AddPointToCategoryRealtime("Player 1", x, y, slideTime);
+            graph.DataSource.AddPointToCategoryRealtime(Category, x, y, slideTime);
     }
 
 }

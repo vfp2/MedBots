@@ -50,6 +50,7 @@ namespace ChartAndGraph
         /// for fill render mode , this sets the boundries of the fill. (so the bottom of the fill matches the bottom of the graph)
         /// </summary>
         Rect mFillRect;
+        float mFillZero;
         /// <summary>
         /// if true , the Y of the fill is stretched
         /// </summary>
@@ -77,14 +78,18 @@ namespace ChartAndGraph
             mPointSize = pointSize;
             mPointRender = true;
         }
-
+        public void SetFillZero(float zero)
+        {
+            mFillZero = zero;
+        }
         /// <summary>
         /// sets inner fill render mode
         /// </summary>
         /// <param name="fillRect"></param>
         /// <param name="stretchY"></param>
-        public void MakeFillRender(Rect fillRect, bool stretchY,bool negative)
+        public void MakeFillRender(Rect fillRect,float fillZero, bool stretchY,bool negative)
         {
+            mFillZero = fillZero;
             mFillRect = fillRect;
             mFillRender = true;
             mStretchY = stretchY;
@@ -542,22 +547,21 @@ namespace ChartAndGraph
 
                     Vector2 toTrim = to;
                     Vector2 fromTrim = from;
-                    TrimItem(mFillRect.xMin, mFillRect.yMin, mFillRect.xMax, mFillRect.yMin, true, false, ref fromTrim, ref toTrim);
+                   // TrimItem(mFillRect.xMin, mFillRect.yMin, mFillRect.xMax, mFillRect.yMin, true, false, ref fromTrim, ref toTrim);
                     to = new Vector3(toTrim.x, toTrim.y, to.z);
                     from = new Vector3(fromTrim.x, fromTrim.y, from.z);
                     Vector3 fromBottom = from;
                     Vector3 toBottom = to;
 
-                    fromBottom.y = mFillRect.yMin;
-                    toBottom.y = mFillRect.yMin;
-
+                    fromBottom.y = mFillZero;// mFillRect.yMin;
+                    toBottom.y = mFillZero;// mFillZero; ;// mFillRect.yMin;
                     float fromV = 1f;
                     float toV = 1f;
 
                     if (mStretchY == false)
                     {
-                        fromV = Mathf.Abs((from.y - mFillRect.yMin) / mFillRect.height);
-                        toV = Mathf.Abs((to.y - mFillRect.yMin) / mFillRect.height);
+                        fromV = Mathf.Abs((from.y - mFillZero) / mFillRect.height);
+                        toV = Mathf.Abs((to.y - mFillZero) / mFillRect.height);
                     }
 
                     float fromU = ((from.x - mFillRect.xMin) / mFillRect.width);
@@ -572,10 +576,31 @@ namespace ChartAndGraph
                     UIVertex v3 = ChartCommon.CreateVertex(fromBottom, uv3, z);
                     UIVertex v4 = ChartCommon.CreateVertex(toBottom, uv4, z);
 
-                    yield return v1;
-                    yield return v2;
-                    yield return v3;
-                    yield return v4;
+                    
+                    if ((from.y < mFillZero) ^ (to.y < mFillZero))
+                    {
+                        Vector3 crossing = ChartCommon.LineCrossing(from, to, mFillZero);
+                        float crossU = ((crossing.x - mFillRect.xMin) / mFillRect.width);
+                        Vector2 uvCross = TransformUv(new Vector2(crossU, 0f));
+                        UIVertex vCross = ChartCommon.CreateVertex(crossing, uvCross, z);
+
+                        yield return v1;
+                        yield return vCross;
+                        yield return v3;
+                        yield return v3;
+
+                        yield return v2;
+                        yield return vCross;
+                        yield return v4;
+                        yield return v4;
+                    }
+                    else
+                    {
+                        yield return v1;
+                        yield return v2;
+                        yield return v3;
+                        yield return v4;
+                    }
                 }
             }
         }

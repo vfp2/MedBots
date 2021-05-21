@@ -28,7 +28,8 @@ namespace ChartAndGraph
             GameObject obj = ChartCommon.CreateCanvasChartItem();
             ChartCommon.HideObject(obj, hideHierarchy);
             obj.AddComponent<ChartItem>();
-            obj.AddComponent<CanvasRenderer>();
+            var rend = obj.AddComponent<CanvasRenderer>();
+            rend.cullTransparentMesh = false;
             CanvasLines lines = obj.AddComponent<CanvasLines>();
             obj.transform.SetParent(conatiner.transform,false);
             obj.transform.localScale = new Vector3(1f, 1f, 1f);

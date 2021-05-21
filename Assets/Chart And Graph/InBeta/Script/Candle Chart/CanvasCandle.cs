@@ -30,6 +30,8 @@ namespace ChartAndGraph
         private CanvasCandleGraphic CreateCandleGraphic()
         {
             GameObject obj = ChartCommon.CreateCanvasChartItem();
+            var rend = obj.AddComponent<CanvasRenderer>();
+            rend.cullTransparentMesh = false;
             CanvasCandleGraphic graphic = obj.AddComponent<CanvasCandleGraphic>();
             graphic.maskable = true;
             RectTransform rect = obj.GetComponent<RectTransform>();
@@ -66,7 +68,7 @@ namespace ChartAndGraph
         }
         public void Generate(CandleChart parent, Rect viewRect, IList<CandleChartData.CandleValue> value, CandleChartData.CandleSettings settings)
         {
-       
+
             if (parent.IsCanvas == false)
             {
                 Debug.LogWarning("prefab is meant to be used with canvas candle chart only");
