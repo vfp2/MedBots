@@ -13,62 +13,50 @@ namespace MedBots
 
         public string[] medDevices;
 
+        int it = 1;
+
         // Start is called before the first frame update
         void Start()
         {
-            InitMeds();
-            InitNeeuro();
             InitGraph();
+            InitNeeuro();
+            InitMeds();
+
+            StartCoroutine(ReadMed());
         }
 
         // Update is called once per frame
-        int it = 0;
         void Update()
         {
-            // if (medDevices != null)
-            // {
-            //     foreach (string device in medDevices) {
-            //         Debug.Log("Updating " + device);
-            //         barChart.DataSource.SetValue(device, it.ToString(), medReader.GetNumBits(device));
-            //     }
-            //     it++;
-            // }
         }
 
-        void InitMeds()
+        void InitGraph()
         {
-            medReader.Init();
-            medDevices = medReader.GetDevices();
-
-            it++;
-            foreach (string device in medDevices) {
-                int ones = medReader.GetNumBits(device);
-                Debug.Log("Updating " + device + " with " + ones + "/" + it);
-                barChart.DataSource.SetValue(device, it.ToString(), medReader.GetNumBits(device));
-            }
-
-            // it++;
-            // foreach (string device in medDevices) {
-            //     int ones = medReader.GetNumBits(device);
-            //     Debug.Log("Updating " + device + " with " + ones + "/" + it);
-            //     barChart.DataSource.SetValue(device, it.ToString(), medReader.GetNumBits(device));
-            // }
-
-            // it++;
-            // foreach (string device in medDevices) {
-            //     int ones = medReader.GetNumBits(device);
-            //     Debug.Log("Updating " + device + " with " + ones + "/" + it);
-            //     barChart.DataSource.SetValue(device, it.ToString(), medReader.GetNumBits(device));
-            // }
+            barChart.GenerateRealtime();
         }
 
         void InitNeeuro()
         {
         }
 
-        void InitGraph()
+        void InitMeds()
         {
-            
+            medReader.Init();
+            medDevices = medReader.GetDevices();
         }
+
+        IEnumerator ReadMed()
+        {
+            while (true)
+            {
+                barChart.DataSource.AddGroup(it.ToString());
+                foreach (string device in medDevices) {
+                    barChart.DataSource.SetValue(device, it.ToString(), medReader.GetNumBits(device));
+                }
+                it++;
+                barChart.Invalidate();
+                yield return null;
+            }
+        }    
     }
 }
