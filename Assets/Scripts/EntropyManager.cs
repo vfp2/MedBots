@@ -13,14 +13,18 @@ namespace MedBots
 
         public string[] medDevices;
 
+        public GameObject camera;
+
+        public Material[] materials;
+
         int it = 1;
 
         // Start is called before the first frame update
         void Start()
         {
-            InitGraph();
-            InitNeeuro();
             InitMeds();
+            InitNeeuro();
+            InitGraph();
 
             StartCoroutine(ReadMed());
         }
@@ -30,19 +34,24 @@ namespace MedBots
         {
         }
 
-        void InitGraph()
+        void InitMeds()
         {
-            barChart.GenerateRealtime();
+            medReader.Init();
+            medDevices = medReader.GetDevices();
         }
 
         void InitNeeuro()
         {
         }
 
-        void InitMeds()
+        void InitGraph()
         {
-            medReader.Init();
-            medDevices = medReader.GetDevices();
+            barChart.GenerateRealtime();
+
+            for (int i = 0; i < medDevices.Length; i++)
+            {
+                barChart.DataSource.AddCategory(medDevices[i], materials[i]);
+            }
         }
 
         IEnumerator ReadMed()
@@ -54,6 +63,8 @@ namespace MedBots
                     barChart.DataSource.SetValue(device, it.ToString(), medReader.GetNumBits(device));
                 }
                 it++;
+                float mv = 4.2f;
+                camera.transform.position += new Vector3(mv * Time.deltaTime, 0, mv * Time.deltaTime);
                 barChart.Invalidate();
                 yield return null;
             }
