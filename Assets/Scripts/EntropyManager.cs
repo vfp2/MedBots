@@ -11,9 +11,13 @@ namespace MedBots
         public WorldSpaceBarChart barChart;
         public MedReader medReader;
 
+        public NSB_EEG nsbEeg;
+
         public string[] medDevices;
 
         public GameObject camera;
+
+        public float cameraMoveSpeed;
 
         public Material[] materials;
 
@@ -42,16 +46,32 @@ namespace MedBots
 
         void InitNeeuro()
         {
+            nsbEeg.assignAttentionDelegate((val) => {
+                barChart.DataSource.SetValue("Attention", it.ToString(), val);
+            });
+
+            nsbEeg.assignMentalWorkloadDelegate((val) => {
+                barChart.DataSource.SetValue("Mental Workload", it.ToString(), val);
+            });
+
+            nsbEeg.assignRelaxationDelegate((val) => {
+                barChart.DataSource.SetValue("Relaxation", it.ToString(), val);
+            });
         }
 
         void InitGraph()
         {
             barChart.GenerateRealtime();
 
-            for (int i = 0; i < medDevices.Length; i++)
+            int i = 0;
+            for (; i < medDevices.Length; i++)
             {
                 barChart.DataSource.AddCategory(medDevices[i], materials[i]);
             }
+
+            barChart.DataSource.AddCategory("Attention", materials[++i]);
+            barChart.DataSource.AddCategory("Mental Workload", materials[++i]);
+            barChart.DataSource.AddCategory("Relaxation", materials[++i]);
         }
 
         IEnumerator ReadMed()
@@ -63,8 +83,7 @@ namespace MedBots
                     barChart.DataSource.SetValue(device, it.ToString(), medReader.GetNumBits(device));
                 }
                 it++;
-                float mv = 4.2f;
-                camera.transform.position += new Vector3(mv * Time.deltaTime, 0, mv * Time.deltaTime);
+                camera.transform.position += new Vector3(cameraMoveSpeed * Time.deltaTime, 0, cameraMoveSpeed * Time.deltaTime);
                 barChart.Invalidate();
                 yield return null;
             }
