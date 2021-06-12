@@ -16,7 +16,7 @@ using NSB_SDK_IOS;
 /// </summary>
 public class NSB_EEG : MonoBehaviour
 {
-
+#if !UNITY_EDITOR_OSX
 	public static NSB_EEG instance;
 
 	public delegate void btValueCallback(float btValues);
@@ -272,6 +272,5 @@ public class NSB_EEG : MonoBehaviour
 	}
 
 	#endregion
+#endif
 }
-
-

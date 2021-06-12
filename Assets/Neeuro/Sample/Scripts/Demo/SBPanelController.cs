@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// Sample usage file. To control the demo Senzeband UI
 /// </summary>
 public class SBPanelController : MonoBehaviour {
-
+#if !UNITY_EDITOR_OSX
 	public NSB_Manager nsbm;
 
 	public Text ConnectionStatusText;
@@ -172,6 +172,5 @@ public class SBPanelController : MonoBehaviour {
 			ReceiveEEGText.text = "Receiving EEG";
 		}
 	}
-
-
+#endif
 }

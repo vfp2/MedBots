@@ -20,8 +20,7 @@ using NSB_SDK_IOS;
 /// </summary>
 public class NSB_Manager : CallbackReceiver
 {
-
-
+#if !UNITY_EDITOR_OSX
 	/*
 		NSBM Init
 			- false
@@ -1047,5 +1046,5 @@ public class NSB_Manager : CallbackReceiver
 			NSB_BLE.instance.clearList();
 		}
 	}
-
+#endif
 }

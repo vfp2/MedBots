@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// Sample usage file. To control the demo Scan panel
 /// </summary>
 public class ScanPanelController : MonoBehaviour {
-
+#if !UNITY_EDITOR_OSX
 	public NSB_Manager nsbm;
 	public Text btStatusText;
 	public Text scanStatusText;
@@ -119,4 +119,5 @@ public class ScanPanelController : MonoBehaviour {
 			}
 		}
 	}
+#endif
 }
