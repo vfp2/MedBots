@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 using ChartAndGraph;
 
@@ -8,20 +9,18 @@ namespace MedBots
 {
     public class EntropyManager : MonoBehaviour
     {
-        public WorldSpaceBarChart barChart;
+        public GraphChart lineChart;
         public MedReader medReader;
 
         public NSB_EEG nsbEeg;
 
         public string[] medDevices;
 
-        public GameObject camera;
-
-        public float cameraMoveSpeed;
-
+        public Material innerFillMaterial;
+        public Material pointMaterial;
         public Material[] materials;
 
-        int it = 1;
+        float it = 1;
 
         // Start is called before the first frame update
         void Start()
@@ -46,45 +45,52 @@ namespace MedBots
 
         void InitNeeuro()
         {
+#if !UNITY_EDITOR_OSX            
             nsbEeg.assignAttentionDelegate((val) => {
-                barChart.DataSource.SetValue("Attention", it.ToString(), val);
+                // lineChart.DataSource.SetValue("Attention", it.ToString(), val);
             });
 
             nsbEeg.assignMentalWorkloadDelegate((val) => {
-                barChart.DataSource.SetValue("Mental Workload", it.ToString(), val);
+                // lineChart.DataSource.SetValue("Mental Workload", it.ToString(), val);
             });
 
             nsbEeg.assignRelaxationDelegate((val) => {
-                barChart.DataSource.SetValue("Relaxation", it.ToString(), val);
+                // lineChart.DataSource.SetValue("Relaxation", it.ToString(), val);
             });
+#endif
         }
 
         void InitGraph()
         {
-            barChart.GenerateRealtime();
-
+            lineChart.DataSource.Clear();
             int i = 0;
-            for (; i < medDevices.Length; i++)
+            for (i = 0; i < medDevices.Length; i++)
             {
-                barChart.DataSource.AddCategory(medDevices[i], materials[i]);
+                lineChart.DataSource.AddCategory(medDevices[i], materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
             }
 
-            barChart.DataSource.AddCategory("Attention", materials[++i]);
-            barChart.DataSource.AddCategory("Mental Workload", materials[++i]);
-            barChart.DataSource.AddCategory("Relaxation", materials[++i]);
+            lineChart.DataSource.AddCategory("QWR4E004", materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, true, pointMaterial, 6.61999988555908, false);
+
+            // lineChart.DataSource.AddCategory("Attention", materials[++i]);
+            // lineChart.DataSource.AddCategory("Mental Workload", materials[++i]);
+            // lineChart.DataSource.AddCategory("Relaxation", materials[++i]);
         }
 
         IEnumerator ReadMed()
         {
             while (true)
             {
-                barChart.DataSource.AddGroup(it.ToString());
-                foreach (string device in medDevices) {
-                    barChart.DataSource.SetValue(device, it.ToString(), medReader.GetNumBits(device));
+                // lineChart.DataSource.AddGroup(it.ToString());
+                for(int i = 0; i < medDevices.Length; i++) {
+                    lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, medReader.GetNumBits(medDevices[i]));
                 }
-                it++;
-                camera.transform.position += new Vector3(cameraMoveSpeed * Time.deltaTime, 0, cameraMoveSpeed * Time.deltaTime);
-                barChart.Invalidate();
+                
+                UnityWebRequest uwr = UnityWebRequest.Get("http://medfarm.fp2.dev:3333/api/randint32?deviceId=QWR4E004");
+                yield return uwr.SendWebRequest();
+                int randint32 = int.Parse(uwr.downloadHandler.text);
+                lineChart.DataSource.AddPointToCategoryRealtime("QWR4E004", it, MedReader.countSetBits(randint32));
+
+                it += 1;
                 yield return null;
             }
         }    

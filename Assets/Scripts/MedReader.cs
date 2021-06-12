@@ -28,7 +28,7 @@ public class MedReader : MonoBehaviour
     private static extern IntPtr MF_GetByte(string generatorSerialNumber, StringBuilder pErrorReason);
 
     static bool medInited = false;
-    int len = 256;
+    int len = 4;
     int num1s = 0, num0s = 0;
 
     public void Init()
@@ -89,7 +89,7 @@ public class MedReader : MonoBehaviour
         return num1s;
     }
 
-    static int countSetBits(int n)
+    public static int countSetBits(int n)
     {
         int count = 0;
         while (n > 0)
