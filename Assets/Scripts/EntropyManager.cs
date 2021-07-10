@@ -69,7 +69,8 @@ namespace MedBots
                 lineChart.DataSource.AddCategory(medDevices[i], materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
             }
 
-            lineChart.DataSource.AddCategory("QWR4E004", materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, true, pointMaterial, 6.61999988555908, false);
+            // MED Farm test
+            // lineChart.DataSource.AddCategory("QWR4E004", materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, true, pointMaterial, 6.61999988555908, false);
 
             // lineChart.DataSource.AddCategory("Attention", materials[++i]);
             // lineChart.DataSource.AddCategory("Mental Workload", materials[++i]);
@@ -85,10 +86,11 @@ namespace MedBots
                     lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, medReader.GetNumBits(medDevices[i]));
                 }
                 
-                UnityWebRequest uwr = UnityWebRequest.Get("http://medfarm.fp2.dev:3333/api/randint32?deviceId=QWR4E004");
-                yield return uwr.SendWebRequest();
-                int randint32 = int.Parse(uwr.downloadHandler.text);
-                lineChart.DataSource.AddPointToCategoryRealtime("QWR4E004", it, MedReader.countSetBits(randint32));
+                // MED Farm test
+                // UnityWebRequest uwr = UnityWebRequest.Get("http://medfarm.fp2.dev:3333/api/randint32?deviceId=QWR4E004");
+                // yield return uwr.SendWebRequest();
+                // int randint32 = int.Parse(uwr.downloadHandler.text);
+                // lineChart.DataSource.AddPointToCategoryRealtime("QWR4E004", it, MedReader.countSetBits(randint32));
 
                 it += 1;
                 yield return null;
