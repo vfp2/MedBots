@@ -12,7 +12,7 @@ namespace MedBots
     {
         public WorldSpaceBarChart barChart;
         public MedReader medReader;
-
+ 
         public NSB_EEG nsbEeg;
 
         public string[] medDevices;
@@ -50,19 +50,19 @@ namespace MedBots
         {
     #if !UNITY_EDITOR_OSX
             nsbEeg.assignAttentionDelegate((val) => {
-                Debug.Log("Attention " + val);
+                UnityEngine.Debug.Log("Attention " + val);
                 it++;
                 barChart.DataSource.SetValue("Attention", it.ToString(), val*1000);
                 barChart.Invalidate();
             });
 
             nsbEeg.assignMentalWorkloadDelegate((val) => {
-                Debug.Log("Mental " + val);
+                UnityEngine.Debug.Log("Mental " + val);
                 barChart.DataSource.SetValue("Mental Workload", it.ToString(), val*1000);
             });
 
             nsbEeg.assignRelaxationDelegate((val) => {
-                Debug.Log("AtRelaxationtention " + val);
+                UnityEngine.Debug.Log("AtRelaxationtention " + val);
                 barChart.DataSource.SetValue("Relaxation", it.ToString(), val*100);
             });
     #endif
