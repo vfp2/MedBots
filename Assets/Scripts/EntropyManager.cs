@@ -47,15 +47,15 @@ namespace MedBots
         {
 #if !UNITY_EDITOR_OSX            
             nsbEeg.assignAttentionDelegate((val) => {
-                // lineChart.DataSource.SetValue("Attention", it.ToString(), val);
+                lineChart.DataSource.AddPointToCategoryRealtime("Attention", it, val);
             });
 
             nsbEeg.assignMentalWorkloadDelegate((val) => {
-                // lineChart.DataSource.SetValue("Mental Workload", it.ToString(), val);
+                lineChart.DataSource.AddPointToCategoryRealtime("Mental Workload", it, val);
             });
 
             nsbEeg.assignRelaxationDelegate((val) => {
-                // lineChart.DataSource.SetValue("Relaxation", it.ToString(), val);
+                lineChart.DataSource.AddPointToCategoryRealtime("Relaxation", it, val);
             });
 #endif
         }
@@ -72,9 +72,9 @@ namespace MedBots
             // MED Farm test
             // lineChart.DataSource.AddCategory("QWR4E004", materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, true, pointMaterial, 6.61999988555908, false);
 
-            // lineChart.DataSource.AddCategory("Attention", materials[++i]);
-            // lineChart.DataSource.AddCategory("Mental Workload", materials[++i]);
-            // lineChart.DataSource.AddCategory("Relaxation", materials[++i]);
+            lineChart.DataSource.AddCategory("Attention", materials[0], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
+            lineChart.DataSource.AddCategory("Mental Workload", materials[1], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
+            lineChart.DataSource.AddCategory("Relaxation", materials[2], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
         }
 
         IEnumerator ReadMed()
