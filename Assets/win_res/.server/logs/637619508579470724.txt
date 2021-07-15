@@ -1,0 +1,300 @@
+[15/7/2021 6:01:22 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:01:22 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:01:28 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:01:28 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:01:34 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:01:34 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:01:39 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:01:39 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:01:45 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:01:45 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:01:51 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:01:51 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:01:57 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:01:57 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:02 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:02 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:08 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:08 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:13 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:13 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:19 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:19 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:25 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:25 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:31 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:31 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:37 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:37 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:42 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:42 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:48 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:48 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:53 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:53 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:02:59 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:02:59 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:05 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:05 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:10 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:10 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:16 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:16 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:21 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:21 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:27 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:27 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:33 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:33 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:39 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:39 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:44 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:44 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:50 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:50 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:03:56 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:03:56 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:01 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:01 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:07 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:07 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:13 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:13 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:19 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:19 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:25 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:25 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:31 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:31 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:37 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:37 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:43 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:43 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:49 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:49 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:04:55 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:04:55 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:01 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:01 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:07 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:07 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:14 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:14 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:19 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:19 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:25 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:25 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:31 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:31 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:36 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:36 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:42 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:42 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:47 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:47 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:53 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:53 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:05:58 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:05:58 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:04 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:04 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:09 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:09 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:15 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:15 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:20 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:20 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:26 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:26 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:32 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:32 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:38 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:38 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:44 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:44 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:49 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:49 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:06:55 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:06:55 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:01 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:01 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:07 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:07 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:12 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:12 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:18 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:18 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:24 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:24 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:30 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:30 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:36 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:36 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:42 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:42 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:47 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:47 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:53 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:53 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:07:59 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:07:59 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:08:05 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:08:05 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:08:11 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:08:11 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:08:16 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:08:16 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:08:22 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:08:22 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
+[15/7/2021 6:08:28 pm] Authentication attempt failed, retry in 00:00:05
+[15/7/2021 6:08:28 pm] System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at NeeuroOSWindows.DeviceAuthentication.AuthenticationContext.DoAuthentication()
