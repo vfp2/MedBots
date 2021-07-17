@@ -4,7 +4,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
 
-public class MedPlayerController : PlayerController
+public class MedPlayerController : MonoBehaviour
 {
     private static readonly int MF_ERROR_STR_MAX_LEN = 256;
     private static StringBuilder sMFErrorReason = new StringBuilder(MF_ERROR_STR_MAX_LEN);
