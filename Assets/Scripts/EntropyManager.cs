@@ -20,6 +20,11 @@ namespace MedBots
         public Material pointMaterial;
         public Material[] materials;
 
+        public bool Pause = false;
+        public bool ShowRandomWalk = true;
+
+        Dictionary<string, int> randomWalks = new Dictionary<string, int>();
+
         float it = 1;
 
         // Start is called before the first frame update
@@ -47,14 +52,17 @@ namespace MedBots
         {
 #if !UNITY_EDITOR_OSX            
             nsbEeg.assignAttentionDelegate((val) => {
+                if (Pause) return;
                 lineChart.DataSource.AddPointToCategoryRealtime("Attention", it, val);
             });
 
             nsbEeg.assignMentalWorkloadDelegate((val) => {
+                if (Pause) return;
                 lineChart.DataSource.AddPointToCategoryRealtime("Mental Workload", it, val);
             });
 
             nsbEeg.assignRelaxationDelegate((val) => {
+                if (Pause) return;
                 lineChart.DataSource.AddPointToCategoryRealtime("Relaxation", it, val);
             });
 #endif
@@ -67,6 +75,7 @@ namespace MedBots
             for (i = 0; i < medDevices.Length; i++)
             {
                 lineChart.DataSource.AddCategory(medDevices[i], materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
+                randomWalks[medDevices[i]] = 0;
             }
 
             // MED Farm test
@@ -77,22 +86,60 @@ namespace MedBots
             lineChart.DataSource.AddCategory("Relaxation", materials[i++], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
         }
 
+        public void ToggleBitCountRandomWalk()
+        {
+            it = 1;
+            ShowRandomWalk = !ShowRandomWalk;
+            if (ShowRandomWalk)
+            {
+                lineChart.DataSource.HorizontalViewSize = 200;
+            }
+            else
+            {
+                lineChart.DataSource.HorizontalViewSize = 30;
+            }
+            InitGraph();
+        }
+
+        public void Reset()
+        {
+            it = 1;
+            randomWalks.Clear();
+            InitGraph();
+        }
+
         IEnumerator ReadMed()
         {
             while (true)
             {
-                // lineChart.DataSource.AddGroup(it.ToString());
-                for(int i = 0; i < medDevices.Length; i++) {
-                    lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, medReader.GetNumBits(medDevices[i]));
-                }
-                
-                // MED Farm test
-                // UnityWebRequest uwr = UnityWebRequest.Get("http://medfarm.fp2.dev:3333/api/randint32?deviceId=QWR4E004");
-                // yield return uwr.SendWebRequest();
-                // int randint32 = int.Parse(uwr.downloadHandler.text);
-                // lineChart.DataSource.AddPointToCategoryRealtime("QWR4E004", it, MedReader.countSetBits(randint32));
+                if (!Pause)
+                {   
+                    // lineChart.DataSource.AddGroup(it.ToString());
+                    for (int i = 0; i < medDevices.Length; i++)
+                    {
+                        var onesCount = medReader.GetNumBits(medDevices[i]);
+                        var zerosCount = (32 - onesCount);
+                        if (onesCount > zerosCount)
+                        {
+                            randomWalks[medDevices[i]] += onesCount;
+                        }
+                        else if (zerosCount > onesCount)
+                        {
+                            randomWalks[medDevices[i]] -= zerosCount;
+                        }
 
-                it += 1;
+                        lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, ShowRandomWalk ? randomWalks[medDevices[i]] : onesCount);
+                    }
+
+                    // MED Farm test
+                    // UnityWebRequest uwr = UnityWebRequest.Get("http://medfarm.fp2.dev:3333/api/randint32?deviceId=QWR4E004");
+                    // yield return uwr.SendWebRequest();
+                    // int randint32 = int.Parse(uwr.downloadHandler.text);
+                    // lineChart.DataSource.AddPointToCategoryRealtime("QWR4E004", it, MedReader.countSetBits(randint32));
+
+                    it += 1;
+                }
+
                 yield return null;
             }
         }    
