@@ -48,7 +48,7 @@ public class PlayerControls : MonoBehaviour {
 
 	//---------------- MEDiness
 
-	public string MedDevice = "QWR4E001";
+	public string MedDevice;
 
 	private static readonly int MF_ERROR_STR_MAX_LEN = 256;
     private static StringBuilder sMFErrorReason = new StringBuilder(MF_ERROR_STR_MAX_LEN);
@@ -57,10 +57,35 @@ public class PlayerControls : MonoBehaviour {
     private static extern void MF_GetBytes(int length, IntPtr buffer, string generatorSerialNumber, StringBuilder pErrorReason);
     [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
     private static extern IntPtr MF_GetByte(string generatorSerialNumber, StringBuilder pErrorReason);
+    [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
+    private static extern int MF_GetNumberGenerators();
+    [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
+    private static extern void MF_GetListGenerators(StringBuilder[] devices);
 
     void MedStart()
     {
+        MedDevice = GetDevices()[0];
         StartCoroutine(ReadMed());
+    }
+
+	public string[] GetDevices()
+    {
+        var devicesSB = new StringBuilder[MF_GetNumberGenerators()];
+        for (int i = 0; i < devicesSB.Length; i++)
+        {
+            devicesSB[i] = new StringBuilder(50);
+        }
+
+        MF_GetListGenerators(devicesSB);
+
+        var devices = new string[devicesSB.Length];
+        for (int i = 0; i < devicesSB.Length; i++)
+        {
+            // Get just the serial number (== 8 chars in length)
+            devices[i] = devicesSB[i].ToString().Substring(0, 8);
+        }
+
+        return devices;
     }
 
     IEnumerator ReadMed()

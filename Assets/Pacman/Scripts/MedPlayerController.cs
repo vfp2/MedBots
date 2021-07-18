@@ -19,6 +19,12 @@ public class MedPlayerController : MonoBehaviour
     private static extern IntPtr MF_GetByte(string generatorSerialNumber, StringBuilder pErrorReason);
 
     [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
+    private static extern int MF_GetNumberGenerators();
+    
+    [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
+    private static extern void MF_GetListGenerators(StringBuilder[] devices);
+
+    [DllImport("meterfeeder", CallingConvention = CallingConvention.Cdecl)]
     private static extern int MF_Shutdown();
 
     static bool medInited = false;
@@ -61,8 +67,8 @@ public class MedPlayerController : MonoBehaviour
         Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, errorReason:{sMFErrorReason}");
         if (medRes != 0)
         {
+            medDevice = GetDevices()[0];
             StartCoroutine(ReadMed());
-
         }
     }
 
@@ -81,8 +87,6 @@ public class MedPlayerController : MonoBehaviour
                     StartCoroutine("PlayDeadAnimation");
                 break;
         }
-
-
     }
 
     IEnumerator PlayDeadAnimation()
@@ -120,7 +124,6 @@ public class MedPlayerController : MonoBehaviour
         PacmanGameManager.DestroySelf();
     }
 
-
     void Animate()
     {
         Vector2 dir = _dest - (Vector2)transform.position;
@@ -143,6 +146,26 @@ public class MedPlayerController : MonoBehaviour
         _dest = new Vector2(15f, 11f);
         GetComponent<Animator>().SetFloat("DirX", 1);
         GetComponent<Animator>().SetFloat("DirY", 0);
+    }
+
+    public string[] GetDevices()
+    {
+        var devicesSB = new StringBuilder[MF_GetNumberGenerators()];
+        for (int i = 0; i < devicesSB.Length; i++)
+        {
+            devicesSB[i] = new StringBuilder(50);
+        }
+
+        MF_GetListGenerators(devicesSB);
+
+        var devices = new string[devicesSB.Length];
+        for (int i = 0; i < devicesSB.Length; i++)
+        {
+            // Get just the serial number (== 8 chars in length)
+            devices[i] = devicesSB[i].ToString().Substring(0, 8);
+        }
+
+        return devices;
     }
 
     IEnumerator ReadMed()
@@ -168,7 +191,7 @@ public class MedPlayerController : MonoBehaviour
     static bool qrngOn = true;
     private float waitTime = 0.2f;
     private float timer = 0.0f;
-    static string medDevice = "QWR4E001";
+    static string medDevice;
     int len = 256;
     int num1s = 0, num0s = 0;
 
