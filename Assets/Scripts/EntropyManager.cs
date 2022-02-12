@@ -31,7 +31,7 @@ namespace MedBots
         void Start()
         {
             InitMeds();
-            InitNeeuro();
+            //InitNeeuro();
             InitGraph();
 
             StartCoroutine(ReadMed());
@@ -81,9 +81,9 @@ namespace MedBots
             // MED Farm test
             // lineChart.DataSource.AddCategory("QWR4E004", materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, true, pointMaterial, 6.61999988555908, false);
 
-            lineChart.DataSource.AddCategory("Attention", materials[i++], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
-            lineChart.DataSource.AddCategory("Mental Workload", materials[i++], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
-            lineChart.DataSource.AddCategory("Relaxation", materials[i++], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
+            // lineChart.DataSource.AddCategory("Attention", materials[i++], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
+            // lineChart.DataSource.AddCategory("Mental Workload", materials[i++], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
+            // lineChart.DataSource.AddCategory("Relaxation", materials[i++], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
         }
 
         public void ToggleBitCountRandomWalk()
@@ -132,7 +132,7 @@ namespace MedBots
                     }
 
                     // MED Farm test
-                    // UnityWebRequest uwr = UnityWebRequest.Get("http://medfarm.fp2.dev:3333/api/randint32?deviceId=QWR4E004");
+                    // UnityWebRequest uwr = UnityWebRequest.Get("https://entronet.fp2.dev/api/randint32?deviceId=QWR4E001");
                     // yield return uwr.SendWebRequest();
                     // int randint32 = int.Parse(uwr.downloadHandler.text);
                     // lineChart.DataSource.AddPointToCategoryRealtime("QWR4E004", it, MedReader.countSetBits(randint32));
