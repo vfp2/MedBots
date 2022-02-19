@@ -14,8 +14,4 @@ public class ParkingWardenButtonHandler : MonoBehaviour
     public void Reset() {
         em.Reset();
     }
-
-    public void ToggleBitCountRandomWalk() {
-        em.ToggleBitCountRandomWalk();
-    }
 }

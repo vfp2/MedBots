@@ -21,7 +21,6 @@ namespace MedBots
         public Material[] materials;
 
         public bool Pause = false;
-        public bool ShowRandomWalk = true;
 
         Dictionary<string, int> randomWalks = new Dictionary<string, int>();
 
@@ -86,21 +85,6 @@ namespace MedBots
             // lineChart.DataSource.AddCategory("Relaxation", materials[i++], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
         }
 
-        public void ToggleBitCountRandomWalk()
-        {
-            it = 1;
-            ShowRandomWalk = !ShowRandomWalk;
-            if (ShowRandomWalk)
-            {
-                lineChart.DataSource.HorizontalViewSize = 200;
-            }
-            else
-            {
-                lineChart.DataSource.HorizontalViewSize = 30;
-            }
-            InitGraph();
-        }
-
         public void Reset()
         {
             it = 1;
@@ -128,7 +112,7 @@ namespace MedBots
                             randomWalks[medDevices[i]] -= zerosCount;
                         }
 
-                        lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, ShowRandomWalk ? randomWalks[medDevices[i]] : onesCount);
+                        lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, randomWalks[medDevices[i]]);
                     }
 
                     // MED Farm test
