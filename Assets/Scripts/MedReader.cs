@@ -29,7 +29,7 @@ public class MedReader : MonoBehaviour
 
     static bool medInited = false;
     int len = 4;
-    int num1s = 0, num0s = 0;
+    // int num1s = 0, num0s = 0;
 
     public void Init()
     {
@@ -59,36 +59,53 @@ public class MedReader : MonoBehaviour
         if (!medInited) return null;
 
         var devicesSB = new StringBuilder[GetNumberDevices()];
-        for (int i = 0; i < devicesSB.Length; i++)
+        int i = 0;
+        for (; i < devicesSB.Length; i++)
         {
             devicesSB[i] = new StringBuilder(50);
         }
 
         MF_GetListGenerators(devicesSB);
 
-        var devices = new string[devicesSB.Length];
-        for (int i = 0; i < devicesSB.Length; i++)
+        var devices = new string[devicesSB.Length + 1];
+        for (i = 0; i < devicesSB.Length; i++)
         {
             // Get just the serial number (== 8 chars in length)
             devices[i] = devicesSB[i].ToString().Substring(0, 8);
         }
+        devices[i] = "PRNG";
 
         return devices;
     }
 
     public int GetNumBits(string device)
     {
-        IntPtr bufferPtr = Marshal.AllocCoTaskMem(len);
-        MF_GetBytes(len, bufferPtr, device, sMFErrorReason);
         byte[] buffer = new byte[len];
-        Marshal.Copy(bufferPtr, buffer, 0, len);
+
+        if (device == "PRNG")
+        {
+            // PRNG
+            System.Random prng = new System.Random();
+            prng.NextBytes(buffer);
+        }
+        else
+        {
+            // TRNGs
+            IntPtr bufferPtr = Marshal.AllocCoTaskMem(len);
+            MF_GetBytes(len, bufferPtr, device, sMFErrorReason);
+            Marshal.Copy(bufferPtr, buffer, 0, len);
+        }
+
+        int num0s, num1s;
         num0s = num1s = 0;
+
         for (int i = 0; i < len; i++)
         {
             int sb = countSetBits(buffer[i]);
             num1s += sb;
             num0s += (8 - sb);
         }
+
         return num1s;
     }
 
@@ -100,6 +117,7 @@ public class MedReader : MonoBehaviour
             count += n & 1;
             n >>= 1;
         }
+
         return count;
     }
 
