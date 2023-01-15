@@ -36,11 +36,14 @@ public class MedReader : MonoBehaviour
         int medRes = -1;
         sMFErrorReason.Clear();
         medRes = MF_Initialize(sMFErrorReason);
-        Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}, errorReason:{sMFErrorReason}");
+        Debug.Log($"MeterFeeder MF_Initialize: result:{medRes}");
         if (medRes != 0)
         {
             medInited = true;
-
+        }
+        else
+        {
+            Debug.LogError($"MeterFeeder MF_Initialize: result:{medRes}, errorReason:{sMFErrorReason}");
         }
     }
 
