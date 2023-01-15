@@ -20,7 +20,20 @@ namespace MedBots
         public Material pointMaterial;
         public Material[] materials;
 
-        public bool Pause = false;
+        public bool Pause 
+        {
+            get {
+                return _pause;
+            }
+            set {
+                if (value)
+                    Debug.Log("Stopping");
+                else
+                    Debug.Log("Starting");
+                _pause = value;
+            }
+        }
+        private bool _pause;
 
         Dictionary<string, int> randomWalks = new Dictionary<string, int>();
 
@@ -87,6 +100,7 @@ namespace MedBots
 
         public void Reset()
         {
+            Debug.Log("Resetting");
             it = 1;
             randomWalks.Clear();
             InitGraph();
