@@ -36,8 +36,12 @@ namespace MedBots
         private bool _pause;
 
         Dictionary<string, int> randomWalks = new Dictionary<string, int>();
+        Dictionary<string, float>  cumZScores = new Dictionary<string, float> ();
+        Dictionary<string, List<float>> onesCountReads = new Dictionary<string, List<float>> ();
 
         float it = 1;
+        int cumulativeOnesCount = 0;
+        int cumulativeZeroesCount = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -88,6 +92,8 @@ namespace MedBots
             {
                 lineChart.DataSource.AddCategory(medDevices[i], materials[i], 2.57999992370605, new ChartAndGraph.MaterialTiling(false, 0), innerFillMaterial, false, pointMaterial, 6.61999988555908, false);
                 randomWalks[medDevices[i]] = 0;
+                cumZScores[medDevices[i]] = 0;
+                onesCountReads[medDevices[i]] = new List<float>();
             }
 
             // MED Farm test
@@ -103,11 +109,15 @@ namespace MedBots
             Debug.Log("Resetting");
             it = 1;
             randomWalks.Clear();
+            cumZScores.Clear();
+            onesCountReads.Clear();
             InitGraph();
         }
 
         IEnumerator ReadMed()
         {
+            int n = 0;
+            
             while (true)
             {
                 if (!Pause)
@@ -126,7 +136,46 @@ namespace MedBots
                             randomWalks[medDevices[i]] -= zerosCount;
                         }
 
-                        lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, randomWalks[medDevices[i]]);
+                        // Graph random walks
+                        //lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, randomWalks[medDevices[i]]);
+
+                        cumulativeOnesCount += onesCount;
+                        cumulativeZeroesCount += zerosCount;
+
+                        // z-score calculation:
+                        // z = (x – μ) / σ
+                        // x - data point
+                        // μ - average
+                        // σ - stddev
+                        // n += (onesCount + zerosCount);
+                        //int x = cumulativeOnesCount;
+                        // float μ = (cumulativeOnesCount / n);
+                        
+                        // σ stddev calculation:
+                        // σ = √(∑(x−μ)²/n)
+                        // μ
+                        onesCountReads[medDevices[i]].Add(onesCount);
+                        float μ = 0;
+                        for (n = 0; n < onesCountReads[medDevices[i]].Count; n++) {
+                            μ += onesCountReads[medDevices[i]][n];
+                        }
+                        μ /= n;
+                        // x
+                        int x = onesCount;
+                        float sumx_μ = 0;
+                        for (int j = 0; j< onesCountReads[medDevices[i]].Count; j++) {
+                            sumx_μ += onesCountReads[medDevices[i]][j] /* x */ - μ;
+                        }
+                        // σ = √(∑(x−μ)²/n)
+                        float σ = Mathf.Sqrt((Mathf.Pow(sumx_μ, 2))/n);
+
+                        // z-score calculation:
+                        // z = (x – μ) / σ
+                        float z = (x -  μ) / σ;
+                        cumZScores[medDevices[i]] += z;
+
+                        // Graph cummulative z-scores
+                        // lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, cumZScores[medDevices[i]]);
                     }
 
                     // MED Farm test
