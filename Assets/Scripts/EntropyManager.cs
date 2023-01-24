@@ -172,11 +172,15 @@ namespace MedBots
 
                         // z-score calculation:
                         // z = (x – μ) / σ
-                        float z = (x -  μ) / σ;
-                        cumZScores[medDevices[i]] += z;
+                        float z = (x - μ) / σ;
+                        if (σ == 0) {
+                            cumZScores[medDevices[i]] = 0;
+                        } else {
+                            cumZScores[medDevices[i]] += z;
+                        }
 
                         // Graph cummulative z-scores
-                        // lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, cumZScores[medDevices[i]]);
+                        lineChart.DataSource.AddPointToCategoryRealtime(medDevices[i], it, cumZScores[medDevices[i]]);
                     }
 
                     // MED Farm test
