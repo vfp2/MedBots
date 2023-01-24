@@ -1,0 +1,1 @@
+This is MedBots. A Unity program for doing MMI (Mind Matter Interaction) experiments. The functional feature at the moment is Parking Warden which graphs output from MED (Mind Enabled) RNGs. You will need libusb installed ($ brew install libusb on mac).
