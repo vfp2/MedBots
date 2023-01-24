@@ -162,12 +162,13 @@ namespace MedBots
                         μ /= n;
                         // x
                         int x = onesCount;
-                        float sumx_μ = 0;
+                        // ∑(x−μ)²
+                        float sumx_μ2 = 0;
                         for (int j = 0; j< onesCountReads[medDevices[i]].Count; j++) {
-                            sumx_μ += onesCountReads[medDevices[i]][j] /* x */ - μ;
+                            sumx_μ2 += Mathf.Pow(onesCountReads[medDevices[i]][j] /* x */ - μ, 2);
                         }
                         // σ = √(∑(x−μ)²/n)
-                        float σ = Mathf.Sqrt((Mathf.Pow(sumx_μ, 2))/n);
+                        float σ = Mathf.Sqrt(sumx_μ2/n);
 
                         // z-score calculation:
                         // z = (x – μ) / σ
