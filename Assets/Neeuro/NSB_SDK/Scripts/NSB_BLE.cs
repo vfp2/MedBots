@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-#if (UNITY_STANDALONE_WIN || UNITY_EDITOR) && NET_4_6 && !UNITY_EDITOR_OSX
+#if (UNITY_STANDALONE_WIN || UNITY_EDITOR) && NET_4_6 && !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
 using NSB_SDK_WINDOWS;
 #elif UNITY_ANDROID
 using NSB_SDK_ANDROID;
@@ -14,7 +14,7 @@ using NSB_SDK_IOS;
 /// </summary>
 public class NSB_BLE : MonoBehaviour
 {
-#if !UNITY_EDITOR_OSX
+#if !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
 	//Action class to store the actions, in order to queue them to run in Update() thread
 	private class ActionClass<T>
 	{

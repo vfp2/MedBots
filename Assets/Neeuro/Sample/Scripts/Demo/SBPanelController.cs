@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// Sample usage file. To control the demo Senzeband UI
 /// </summary>
 public class SBPanelController : MonoBehaviour {
-#if !UNITY_EDITOR_OSX
+#if !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
 	public NSB_Manager nsbm;
 
 	public Text ConnectionStatusText;

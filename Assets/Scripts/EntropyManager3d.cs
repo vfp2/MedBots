@@ -48,7 +48,7 @@ namespace MedBots
 
         void InitNeeuro()
         {
-    #if !UNITY_EDITOR_OSX
+    #if !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
             nsbEeg.assignAttentionDelegate((val) => {
                 UnityEngine.Debug.Log("Attention " + val);
                 it++;

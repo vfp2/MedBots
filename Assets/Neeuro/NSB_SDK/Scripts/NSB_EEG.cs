@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-#if (UNITY_STANDALONE_WIN || UNITY_EDITOR) && NET_4_6 && !UNITY_EDITOR_OSX
+#if (UNITY_STANDALONE_WIN || UNITY_EDITOR) && NET_4_6 && !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
 using NSB_SDK_WINDOWS;
 #elif UNITY_ANDROID
 using NSB_SDK_ANDROID;
@@ -16,7 +16,7 @@ using NSB_SDK_IOS;
 /// </summary>
 public class NSB_EEG : MonoBehaviour
 {
-#if !UNITY_EDITOR_OSX
+#if !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
 	public static NSB_EEG instance;
 
 	public delegate void btValueCallback(float btValues);

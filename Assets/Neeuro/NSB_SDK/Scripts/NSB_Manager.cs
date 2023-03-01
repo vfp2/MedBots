@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using System.Linq;
 using System;
 
-#if (UNITY_STANDALONE_WIN || UNITY_EDITOR) && NET_4_6 && !UNITY_EDITOR_OSX
+#if (UNITY_STANDALONE_WIN || UNITY_EDITOR) && NET_4_6 && !UNITY_EDITOR_OSXUNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
 using NSB_SDK_WINDOWS;
 #elif UNITY_ANDROID
 using NSB_SDK_ANDROID;
@@ -20,7 +20,7 @@ using NSB_SDK_IOS;
 /// </summary>
 public class NSB_Manager : CallbackReceiver
 {
-#if !UNITY_EDITOR_OSX
+#if !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
 	/*
 		NSBM Init
 			- false
