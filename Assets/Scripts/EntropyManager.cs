@@ -60,13 +60,24 @@ namespace MedBots
 
         void InitMeds()
         {
+            // USB MEDs
             medReader.Init();
             medDevices = medReader.GetDevices();
+
+            // MED Farm
+            // medDevices = new string[] {
+            //     "QWR4E002",
+            //     "QWR4E004",
+            //     "QWR4B008",
+            //     "QWR4A013",
+            //     "QWR4A003",
+            //     "PRNG"
+            // };
         }
 
         void InitNeeuro()
         {
-#if !UNITY_EDITOR_OSX            
+#if !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX     
             nsbEeg.assignAttentionDelegate((val) => {
                 if (Pause) return;
                 lineChart.DataSource.AddPointToCategoryRealtime("Attention", it, val);
@@ -125,7 +136,33 @@ namespace MedBots
                     // lineChart.DataSource.AddGroup(it.ToString());
                     for (int i = 0; i < medDevices.Length; i++)
                     {
-                        var onesCount = medReader.GetNumBits(medDevices[i]);
+                        int onesCount = 0;
+
+                        // USB MEDS
+                        onesCount = medReader.GetNumBits(medDevices[i]);
+
+                        // MED Farm
+                        // if (medDevices[i] == "PRNG")
+                        // {
+                        //     // PRNG
+                        //     byte[] buffer = new byte[4];
+                        //     System.Random prng = new System.Random();
+                        //     prng.NextBytes(buffer);
+                        //     for (int j = 0; j < 4; j++)
+                        //     {
+                        //         int sb = MedReader.countSetBits(buffer[j]);
+                        //         onesCount += sb;
+                        //     }
+                        // }
+                        // else
+                        // {
+                        //     // MED Farm test
+                        //     UnityWebRequest uwr = UnityWebRequest.Get("https://entronet.fp2.dev/api/randint32?deviceId=" + medDevices[i]);
+                        //     yield return uwr.SendWebRequest();
+                        //     int randint32 = int.Parse(uwr.downloadHandler.text);
+                        //     onesCount = MedReader.countSetBits(randint32);
+                        // }
+
                         var zerosCount = (32 - onesCount);
                         if (onesCount > zerosCount)
                         {
@@ -192,6 +229,7 @@ namespace MedBots
                     it += 1;
                 }
 
+                // yield return new WaitForSeconds(.1f);
                 yield return null;
             }
         }    
