@@ -24,7 +24,7 @@ public class BallControl : MonoBehaviour {
 	}
 
 	void ResetBall() {
-		rb2d.velocity = new Vector2 (0, 0);
+		rb2d.linearVelocity = new Vector2 (0, 0);
 		transform.position = Vector2.zero;
 	}
 
@@ -36,9 +36,9 @@ public class BallControl : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.collider.CompareTag ("Player")) {
 			Vector2 vel;
-			vel.x = rb2d.velocity.x;
-			vel.y = (rb2d.velocity.y / 2.0f) + (coll.collider.attachedRigidbody.velocity.y / 3.0f);
-			rb2d.velocity = vel;
+			vel.x = rb2d.linearVelocity.x;
+			vel.y = (rb2d.linearVelocity.y / 2.0f) + (coll.collider.attachedRigidbody.linearVelocity.y / 3.0f);
+			rb2d.linearVelocity = vel;
 		}
 	}
 

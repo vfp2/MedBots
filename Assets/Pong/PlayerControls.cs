@@ -33,9 +33,9 @@ public class PlayerControls : MonoBehaviour {
 		// }
 		// rb2d.velocity = vel;
 
-        var vel = rb2d.velocity;
+        var vel = rb2d.linearVelocity;
         vel = ReadInputAndMove(vel);
-		rb2d.velocity = vel;
+		rb2d.linearVelocity = vel;
 
 		var pos = transform.position;
 		if (pos.y > boundY) {
